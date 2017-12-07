@@ -56,6 +56,13 @@ RUN rm -rf /var/lib/apt/lists/* \
         Cython \
         && \
 
+    # Boost
+    wget -O ~/boost.tar.gz https://dl.bintray.com/boostorg/release/1.65.1/source/boost_1_65_1.tar.gz && \
+    tar -zxf ~/boost.tar.gz -C ~ && \
+    cd ~/boost_* && \
+    ./bootstrap.sh --with-python=python3.6 && \
+    ./b2 install --prefix=/usr/local && \
+
     # CNTK
    $APT_INSTALL \
        openmpi-bin \
@@ -96,22 +103,35 @@ RUN rm -rf /var/lib/apt/lists/* \
     # Keras
     $PIP_INSTALL \
         h5py \
-        keras
-
-    # Caffee
-RUN $APT_INSTALL \
-        libboost-all-dev \
+        keras \
+        && \
+    
+    # OpenCV
+    $APT_INSTALL \
+        libatlas-base-dev \
         libgflags-dev \
         libgoogle-glog-dev \
         libhdf5-serial-dev \
         libleveldb-dev \
         liblmdb-dev \
-        libopencv-dev \
         libprotobuf-dev \
         libsnappy-dev \
         protobuf-compiler \
         && \
 
+    $GIT_CLONE https://github.com/opencv/opencv ~/opencv && \
+    mkdir -p ~/opencv/build && cd ~/opencv/build && \
+    cmake -D CMAKE_BUILD_TYPE=RELEASE \
+          -D CMAKE_INSTALL_PREFIX=/usr/local \
+          -D WITH_IPP=OFF \
+          -D WITH_CUDA=OFF \
+          -D WITH_OPENCL=OFF \
+          -D BUILD_TESTS=OFF \
+          -D BUILD_PERF_TESTS=OFF \
+          .. && \
+    make -j"$(nproc)" install && \
+
+    # Caffee
     $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
     cd ~/nccl && \
     make -j"$(nproc)" install && \
