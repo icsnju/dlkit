@@ -115,7 +115,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     cd /opt/caffe/python && \
     $PIP_INSTALL -r requirements.txt && \
     $GIT_CLONE https://github.com/NVIDIA/nccl.git /opt/nccl && \
-    cd /jopt/nccl && \
+    cd /opt/nccl && \
     make -j"$(nproc)" install && \
     rm -rf /opt/nccl && \
     mkdir /opt/caffe/build && \
