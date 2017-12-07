@@ -96,7 +96,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     # Keras
     $PIP_INSTALL \
         h5py \
-        keras \
+        keras
 
     # Caffee
 RUN $APT_INSTALL \
