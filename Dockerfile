@@ -100,6 +100,13 @@ RUN rm -rf /var/lib/apt/lists/* \
 
     # Caffee
 RUN $APT_INSTALL \
+        libboost-all-dev \
+        libgflags-dev \
+        libgoogle-glog-dev \
+        libhdf5-serial-dev \
+        libleveldb-dev \
+        liblmdb-dev \
+        libopencv-dev \
         libprotobuf-dev \
         libsnappy-dev \
         protobuf-compiler \
