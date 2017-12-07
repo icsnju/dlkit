@@ -1,4 +1,4 @@
-FROM nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn6-devel-ubuntu16.04
 
 MAINTAINER Institute of Computer Software, Nanjing University <icsnju@163.com>
 
@@ -97,10 +97,9 @@ RUN rm -rf /var/lib/apt/lists/* \
     $PIP_INSTALL \
         h5py \
         keras \
-        && \
 
     # Caffee
-    $APT_INSTALL \
+RUN $APT_INSTALL \
         libboost-all-dev \
         libgflags-dev \
         libgoogle-glog-dev \
