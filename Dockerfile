@@ -1,4 +1,4 @@
-FROM registry.njuics.cn/nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
+FROM nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
 
 MAINTAINER Institute of Computer Software, Nanjing University <icsnju@163.com>
 
