@@ -99,7 +99,13 @@ RUN rm -rf /var/lib/apt/lists/* \
         keras
 
     # Caffee
-RUN $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
+RUN $APT_INSTALL \
+        libprotobuf-dev \
+        libsnappy-dev \
+        protobuf-compiler \
+        && \
+
+    $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
     cd ~/nccl && \
     make -j"$(nproc)" install && \
 
