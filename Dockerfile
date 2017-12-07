@@ -99,28 +99,36 @@ RUN rm -rf /var/lib/apt/lists/* \
         keras
 
     # Caffee
-RUN $APT_INSTALL \
-        libboost-all-dev \
-        libgflags-dev \
-        libgoogle-glog-dev \
-        libhdf5-serial-dev \
-        libleveldb-dev \
-        liblmdb-dev \
-        libopencv-dev \
-        libprotobuf-dev \
-        libsnappy-dev \
-        && \
-    $GIT_CLONE -b 1.0 https://github.com/BVLC/caffe.git /opt/caffe && \
-    cd /opt/caffe/python && \
-    $PIP_INSTALL -r requirements.txt && \
-    $GIT_CLONE https://github.com/NVIDIA/nccl.git /opt/nccl && \
-    cd /opt/nccl && \
+RUN $GIT_CLONE https://github.com/NVIDIA/nccl ~/nccl && \
+    cd ~/nccl && \
     make -j"$(nproc)" install && \
-    rm -rf /opt/nccl && \
-    mkdir /opt/caffe/build && \
-    cd /opt/caffe/build && \
-    cmake -DUSE_CUDNN=1 -DUSE_NCCL=1 .. && \
-    make -j"$(nproc)" && \
+
+    $GIT_CLONE https://github.com/BVLC/caffe ~/caffe && \
+    cp ~/caffe/Makefile.config.example ~/caffe/Makefile.config && \
+    sed -i 's/# USE_CUDNN/USE_CUDNN/g' ~/caffe/Makefile.config && \
+    sed -i 's/# PYTHON_LIBRARIES/PYTHON_LIBRARIES/g' ~/caffe/Makefile.config && \
+    sed -i 's/# WITH_PYTHON_LAYER/WITH_PYTHON_LAYER/g' ~/caffe/Makefile.config && \
+    sed -i 's/# OPENCV_VERSION/OPENCV_VERSION/g' ~/caffe/Makefile.config && \
+    sed -i 's/# USE_NCCL/USE_NCCL/g' ~/caffe/Makefile.config && \
+    sed -i 's/2\.7/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/3\.5/3\.6/g' ~/caffe/Makefile.config && \
+    sed -i 's/\/usr\/lib\/python/\/usr\/local\/lib\/python/g' ~/caffe/Makefile.config && \
+    sed -i 's/\/usr\/local\/include/\/usr\/local\/include \/usr\/include\/hdf5\/serial/g' ~/caffe/Makefile.config && \
+    sed -i 's/hdf5/hdf5_serial/g' ~/caffe/Makefile && \
+    cd ~/caffe && \
+    make -j"$(nproc)" -Wno-deprecated-gpu-targets distribute && \
+
+    # fix ValueError caused by python-dateutil 1.x
+    sed -i 's/,<2//g' ~/caffe/python/requirements.txt && \
+
+    $PIP_INSTALL \
+        -r ~/caffe/python/requirements.txt && \
+
+    cd ~/caffe/distribute/bin && \
+    for file in *.bin; do mv "$file" "${file%%.bin}"; done && \
+    cd ~/caffe/distribute && \
+    cp -r bin include lib proto /usr/local/ && \
+    cp -r python/caffe /usr/local/lib/python3.6/dist-packages/ && \
 
     # config and cleanup
     ldconfig && \
