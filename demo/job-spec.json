@@ -31,7 +31,7 @@
     "networkInfos": [],
     "volumes": [
       {
-        "hostPath": "/gluster/volume2/mesosdata",
+        "hostPath": "/gluster/volume2/data",
         "containerPath": "/data",
         "mode": "RW"
       }
