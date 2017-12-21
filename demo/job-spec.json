@@ -1,0 +1,45 @@
+{
+  "name": "mnist-cnn-demo",
+  "command": 
+  "cd /data/mnist; env; sudo touch sudo_in_docker.txt;  python mnist_cnn.py | tee out-`date +%Y%m%dT%H%M%S`.txt",
+  "shell": true,
+  "executor": "",
+  "executorFlags": "",
+  "taskInfoData": "",
+  "retries": 0,
+  "owner": "",
+  "ownerName": "",
+  "description": "",
+  "cpus": 10,
+  "disk": 1000,
+  "mem": 10240,
+  "gpus": 1,
+  "disabled": false,
+  "softError": false,
+  "dataProcessingJobType": false,
+  "fetch": [],
+  "uris": [],
+  "environmentVariables": [],
+  "arguments": [],
+  "highPriority": false,
+  "runAsUser": "mesos",
+  "concurrent": false,
+  "container": {
+    "type": "MESOS",
+    "image": "<registry>/dlkit:latest",
+    "network": "BRIDGE",
+    "networkInfos": [],
+    "volumes": [
+      {
+        "hostPath": "/gluster/volume2/mesosdata",
+        "containerPath": "/data",
+        "mode": "RW"
+      }
+    ],
+    "forcePullImage": true,
+    "parameters": []
+  },
+  "constraints": [],
+  "schedule": "R1/2020-01-01T00:00:00Z/P1Y",
+  "scheduleTimeZone": ""
+}
