@@ -13,9 +13,9 @@
 | n169     | 20    | 2   | 124.6 GB | 180 GB  |        |
 | n170     | 20    | 2   | 124.6 GB | 180 GB  |        |
 
-服务器：Dell PowerEdge R730 
-CPU：`Intel Xeon E5-2630 v4 @ 2.20GHz`，两个CPU，各10个物理核心，没有开启超线程 
-GPU：`NVIDIA GP102 [GeForce GTX 1080 Ti] (rev a1)`
++ 服务器：Dell PowerEdge R730 
++ CPU：`Intel Xeon E5-2630 v4 @ 2.20GHz`，两个CPU，各10个物理核心，没有开启超线程 
++ GPU：`NVIDIA GP102 [GeForce GTX 1080 Ti] (rev a1)`
 
 # 服务地址
 
@@ -60,7 +60,8 @@ sudo mount -t cifs //n167/data /mnt-path -o user=<user>,pass=<pass>,port=4455
 # 使用Chronos提交作业
 
 ## 上传示例代码和数据
-首先通过文件服务上传所需代码和文件，以[Keras的MNIST CNN手写数字识别](https://github.com/keras-team/keras/blob/master/examples/mnist_cnn.py)为例，我们先把示例代码保存为`mnist_cnn.py`，示例是从[AWS下载MNIST数据文件](https://s3.amazonaws.com/img-datasets/mnist.npz)的，由于集群的机器无法访问外网，所以先把数据文件`mnist.npz`下载下来，并修改加载数据的第24行代码：
+首先通过文件服务上传所需代码和文件：
+以[Keras的MNIST CNN手写数字识别](https://github.com/keras-team/keras/blob/master/examples/mnist_cnn.py)为例，我们先把示例代码保存为`mnist_cnn.py`，示例是从[AWS下载MNIST数据文件](https://s3.amazonaws.com/img-datasets/mnist.npz)的，由于集群的机器无法访问外网，所以先把数据文件`mnist.npz`下载下来，并修改加载数据的第24行代码：
 ```
 (x_train, y_train), (x_test, y_test) = mnist.load_data(path="/data/mnist/mnist.npz")
 ```
