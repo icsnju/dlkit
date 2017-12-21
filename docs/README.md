@@ -13,8 +13,8 @@
 | n169     | 20    | 2   | 124.6 GB | 180 GB  |        |
 | n170     | 20    | 2   | 124.6 GB | 180 GB  |        |
 
-服务器：Dell PowerEdge R730
-CPU：`Intel Xeon E5-2630 v4 @ 2.20GHz`，两个CPU，各10个物理核心，没有开启超线程
+服务器：Dell PowerEdge R730 
+CPU：`Intel Xeon E5-2630 v4 @ 2.20GHz`，两个CPU，各10个物理核心，没有开启超线程 
 GPU：`NVIDIA GP102 [GeForce GTX 1080 Ti] (rev a1)`
 
 # 服务地址
