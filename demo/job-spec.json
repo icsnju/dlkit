@@ -11,7 +11,7 @@
   "ownerName": "",
   "description": "",
   "cpus": 10,
-  "disk": 1000,
+  "disk": 100,
   "mem": 10240,
   "gpus": 1,
   "disabled": false,

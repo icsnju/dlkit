@@ -175,7 +175,7 @@ sudo mount -t cifs //n167/data /mnt-path -o user=<user>,pass=<pass>,port=4455
 
 ### 作业控制
 Chronos针对的是定时周期作业，这里选择手动启动作业，所以设置了 `"retries": 0` 和 `"schedule": "R1/2020-01-01T00:00:00Z/P1Y"`，即只执行1次，间隔1年，失败后重试0次，然后在Web界面手动启动作业。
-Chronos的Web界面会显示作业的状态，如Queue，Running，Success，Idle，Failed等。
+Chronos的Web界面会显示作业的状态，如Queue，Running，Success，Idle，Failure等。
 如果集群中有空闲资源，作业获得资源后转入运行状态，作业运行中和结束后可以在Web界面查看命令的输出。
 **手动启动作业后**，如果作业无法获得所需资源，会一直在队列中等待，当其它作业退出，释放资源后，等待的作业就可以获取资源，开始运行了。
 
