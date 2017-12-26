@@ -5,11 +5,10 @@ FROM ubuntu:16.04
 ENV APT_INSTALL="apt install -y --no-install-recommends"
 ENV PIP_INSTALL="pip --no-cache-dir install "
 
-COPY tensorflow-1.4.1-cp27-cp27mu-linux_x86_64.whl /tmp
 RUN apt update && \
     ${APT_INSTALL} curl git wget vim unzip python2.7 python-pip python-setuptools sudo  && \
     ${PIP_INSTALL} --upgrade pip                                      && \
-    ${PIP_INSTALL} /tmp/tensorflow-1.4.1-cp27-cp27mu-linux_x86_64.whl && \
+    ${PIP_INSTALL} https://github.com/icsnju/dlkit/raw/master/tensorflow-1.4.1-cp27-cp27mu-linux_x86_64.whl && \
     ${PIP_INSTALL} keras h5py         && \
     groupadd -g 1000 mesos            && \
     useradd  -m -u 1000 -g 1000 mesos && \
@@ -18,3 +17,4 @@ RUN apt update && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
 USER mesos
+ 
