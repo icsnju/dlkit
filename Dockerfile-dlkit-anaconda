@@ -1,0 +1,32 @@
+FROM nvidia/cuda:8.0-cudnn6-runtime-ubuntu16.04
+
+MAINTAINER Institute of Computer Software, Nanjing University <icsnju@163.com>
+
+ENV APT_INSTALL="apt-get install -y --no-install-recommends"
+ENV PIP_INSTALL="pip --no-cache-dir install --upgrade"
+
+RUN rm -rf /var/lib/apt/lists/* \
+     	   /etc/apt/sources.list.d/cuda.list \
+           /etc/apt/sources.list.d/nvidia-ml.list &&\
+    apt-get update &&\
+
+    # tools
+    $APT_INSTALL curl git wget vim rsync unzip    &&\
+
+    # Anaconda
+    # curl -s https://mirrors.tuna.tsinghua.edu.cn/anaconda/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O &&\
+    curl -s https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O &&\
+    bash Anaconda3-5.0.1-Linux-x86_64.sh -b -p /opt/anaconda3  &&\
+    rm   Anaconda3-5.0.1-Linux-x86_64.sh  &&\
+    echo 'export PATH=/opt/anaconda3/bin:$PATH' >> /etc/profile &&\
+    source /etc/profile                   &&\
+    conda install tensorflow-gpu keras    &&\
+
+    apt-get clean && apt-get autoremove   &&\
+    rm -rf /var/lib/apt/lists/* /tmp/* ~/*
+
+# Set environment
+ENV PATH=/opt/anaconda3/bin:$PATH
+ENV LD_LIBRARY_PATH /usr/local/cuda/extras/CUPTI/lib64:$LD_LIBRARY_PATH
+
+EXPOSE 6006 8888

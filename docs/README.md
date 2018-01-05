@@ -161,7 +161,11 @@ sudo mount -t cifs //n167/data /mnt-path -o user=<user>,pass=<pass>,port=4455
 + 使用`tee`命令同时将计算结果输出到`stdout`和``out-`date +%Y%m%dT%H%M%S`.txt"``文件中，这样就可以从Web界面，以及FTP或Samba文件服务器查看输出结果。
 
 ### 执行环境
-作业命令是在Docker容器中执行的，使用的镜像是 `<registry>/dlkit:latest` ，其[Dockerfile](https://github.com/icsnju/dlkit/blob/master/Dockerfile) 基于CUDA 8.0和cuDNN 6，安装有**python 3.6**，**jdk 8**，**TensorFlow 1.4**，**Keras**，**Pytorch 0.3** 等库和框架。
+作业命令是在Docker容器中执行的，使用的镜像是 `<registry>/dlkit:latest` ，其[Dockerfile](https://github.com/icsnju/dlkit/blob/master/Dockerfile) 基于CUDA 8.0和cuDNN 6，安装有
++ **python 3.6**，
++ **TensorFlow 1.4**
++ **Keras**
+等库和框架。
 如果需要其它环境，或缺失某些库，请联系管理员。
 
 ### 工作路径
