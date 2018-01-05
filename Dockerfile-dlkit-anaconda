@@ -21,7 +21,7 @@ RUN rm -rf /var/lib/apt/lists/* \
     echo 'export PATH=/opt/anaconda3/bin:$PATH' >> /etc/profile &&\
     export PATH=/opt/anaconda3/bin:$PATH     &&\
     conda install -y tensorflow-gpu keras matplotlib colour     &&\
-    pip   install -y pyqt5                   &&\
+    pip   install pyqt5                      &&\
     apt-get clean && apt-get autoremove      &&\
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
 
