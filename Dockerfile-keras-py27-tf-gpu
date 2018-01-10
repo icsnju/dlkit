@@ -9,11 +9,6 @@ RUN apt update && \
     ${APT_INSTALL} curl git wget vim unzip python2.7 python-pip python-setuptools sudo  && \
     ${PIP_INSTALL} --upgrade pip              && \
     ${PIP_INSTALL} tensorflow-gpu keras h5py  && \
-#    groupadd -g 1000 mesos                    && \
-#    useradd  -m -u 1000 -g 1000 mesos         && \
-#    echo "mesos ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/mesos && \
     apt clean ; apt autoremove                && \
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*
-
-#USER mesos
  
