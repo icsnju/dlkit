@@ -17,13 +17,12 @@ RUN rm -rf /var/lib/apt/lists/* \
     # Anaconda
     curl -s -k https://repo.continuum.io/archive/Anaconda3-5.0.1-Linux-x86_64.sh -O &&\
     bash Anaconda3-5.0.1-Linux-x86_64.sh -b -p /opt/anaconda3   &&\
-    rm   Anaconda3-5.0.1-Linux-x86_64.sh     &&\
+    rm   Anaconda3-5.0.1-Linux-x86_64.sh &&\
     echo 'export PATH=/opt/anaconda3/bin:$PATH' >> /etc/profile &&\
-    export PATH=/opt/anaconda3/bin:$PATH     &&\  
-    conda update  -y -n base conda           &&\   
-    conda install -y matplotlib colour numpy &&\
-    pip   install pyqt5                      &&\
-    apt-get clean && apt-get autoremove      &&\
+    export PATH=/opt/anaconda3/bin:$PATH &&\
+    conda update  -y conda               &&\   
+    conda install -y matplotlib colour numpy pyqt &&\
+    apt-get clean && apt-get autoremove  &&\
     rm -rf /var/lib/apt/lists/* /tmp/* ~/*  
 
 RUN conda install -y tensorflow-gpu keras-gpu 
