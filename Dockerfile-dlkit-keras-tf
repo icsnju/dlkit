@@ -1,0 +1,3 @@
+FROM yingx/dlkit:anaconda
+
+RUN conda install -y tensorflow-gpu keras-gpu 
